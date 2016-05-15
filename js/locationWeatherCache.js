@@ -34,7 +34,7 @@ function LocationWeatherCache()
     locations.nickname = "" ; 
     locations.latitude = [] ;
     locations.longitude = [];
-    locations.forecasts = { name  : locations.latitude +","+ locations.longitude +","+ Date(),
+    locations.forecasts = { name  : locations.latitude +","+ locations.longitude +","+ this.dateString(),
                             value :  "okay guys i have no idea what to put here for now"
                           }
     var callbacks = {};
