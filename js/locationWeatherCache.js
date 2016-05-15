@@ -31,6 +31,12 @@ function LocationWeatherCache()
     // Private attributes:
 
     var locations = [];
+    locations.nickname = "" ; 
+    locations.latitude = [] ;
+    locations.longitude = [];
+    locations.forecasts = { name  : locations.latitude +","+ locations.longitude +","+ Date(),
+                            value :  "okay guys i have no idea what to put here for now"
+                          }
     var callbacks = {};
 
     // Public methods:
