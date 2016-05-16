@@ -27,7 +27,20 @@
           <main class="mdl-layout__content">
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
-                <!--   Main page content here:   -->  
+                <!--   Main page content here:   -->
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="inputAddress" onkeyup="searchAddress()">
+					<label class="mdl-textfield__label" for="inputAddress">Enter an address or a location:</label>
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="inputLabel">
+					<label class="mdl-textfield__label" for="inputLabel">Add a label for this location (Optional):</label>
+				</div>
+				<div id="map"></div>
+				<br>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="saveLocation()">
+					SAVE LOCATION
+				</button>
 
               </div>
             </div>
