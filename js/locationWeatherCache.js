@@ -31,12 +31,16 @@ function LocationWeatherCache()
     // Private attributes:
 
     var locations = [];
-    locations.nickname = "" ; 
+    
+    // Pretty sure this thing here are wrong. Please revise this one Var
+    /*locations.nickname = "" ; 
     locations.latitude = [] ;
     locations.longitude = [];
     locations.forecasts = { name  : locations.latitude +","+ locations.longitude +","+ this.dateString,
                             value :  "okay guys i have no idea what to put here for now"
                           }
+    */
+    
     var callbacks = {};
 
     // Public methods:
@@ -44,12 +48,14 @@ function LocationWeatherCache()
     // Returns the number of locations stored in the cache.
     //
     this.length = function() {
+        return locations.length;
     };
     
     // Returns the location object for a given index.
     // Indexes begin at zero.
     //
     this.locationAtIndex = function(index) {
+        return locations[index];
     };
 
     // Given a latitude, longitude and nickname, this method saves a 
