@@ -30,13 +30,7 @@ function LocationWeatherCache()
 {
     // Private attributes:
 
-    var locations = []; 
-    //locations.nickname = "" ; 
-    //locations.latitude = [] ;
-    //locations.longitude = [];
-    //locations.forecasts = { name  : locations.latitude +","+ locations.longitude +","+ this.dateString,
-    //                        value :  "okay guys i have no idea what to put here for now"
-                          }
+    var locations = [];
     var callbacks = {};
 
     // Public methods:
@@ -44,6 +38,7 @@ function LocationWeatherCache()
     // Returns the number of locations stored in the cache.
     //
     this.length = function() {
+        return locations.length;
     };
     
     // Returns the location object for a given index.
@@ -51,8 +46,9 @@ function LocationWeatherCache()
     //
     this.locationAtIndex = function(index) 
     {
-    index = this.length() -1
-    return location.index                  
+    //index = this.length() -1
+    //return locations.index
+    // Var can u explain to me why this code is like this? Y LIEK DIEZ?
     };
 
     // Given a latitude, longitude and nickname, this method saves a 
@@ -62,16 +58,17 @@ function LocationWeatherCache()
    
 
     this.addLocation = function(latitude, longitude, nickname)
-    { var index = locations.length;
-     locations[index] = {
-         "Latitude" : latitude ,
-         "Longitude" : longitude,
-         "Nickname" : nickname,
-         "Forecast" : ""
-                        }
+    { 
+        var index = locations.length;
+        locations[index] = {
+            "Latitude" : latitude ,
+            "Longitude" : longitude,
+            "Nickname" : nickname,
+            "Forecast" : ""
+            }
+        var strLoc = JSON.stringify(locations);
+        localStorage.setItem(APP_PREFIX,strLoc);
     }
-var strLoc = JSON.stringify(locations);
-localStorage.setItem(APP_PREFIX,strLoc) ;
 
     // Removes the saved location at the given index.
     // 
