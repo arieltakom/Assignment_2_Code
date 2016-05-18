@@ -30,17 +30,13 @@ function LocationWeatherCache()
 {
     // Private attributes:
 
-    var locations = [];
-    
-    // Pretty sure this thing here are wrong. Please revise this one Var
-    /*locations.nickname = "" ; 
-    locations.latitude = [] ;
-    locations.longitude = [];
-    locations.forecasts = { name  : locations.latitude +","+ locations.longitude +","+ this.dateString,
-                            value :  "okay guys i have no idea what to put here for now"
+    var locations = []; 
+    //locations.nickname = "" ; 
+    //locations.latitude = [] ;
+    //locations.longitude = [];
+    //locations.forecasts = { name  : locations.latitude +","+ locations.longitude +","+ this.dateString,
+    //                        value :  "okay guys i have no idea what to put here for now"
                           }
-    */
-    
     var callbacks = {};
 
     // Public methods:
@@ -48,28 +44,40 @@ function LocationWeatherCache()
     // Returns the number of locations stored in the cache.
     //
     this.length = function() {
-        return locations.length;
     };
     
     // Returns the location object for a given index.
     // Indexes begin at zero.
     //
-    this.locationAtIndex = function(index) {
-        return locations[index];
+    this.locationAtIndex = function(index) 
+    {
+    index = this.length() -1
+    return location.index                  
     };
 
     // Given a latitude, longitude and nickname, this method saves a 
     // new location into the cache.  It will have an empty 'forecasts'
     // property.  Returns the index of the added location.
     //
+   
+
     this.addLocation = function(latitude, longitude, nickname)
-    {
+    { var index = locations.length;
+     locations[index] = {
+         "Latitude" : latitude ,
+         "Longitude" : longitude,
+         "Nickname" : nickname,
+         "Forecast" : ""
+                        }
     }
+var strLoc = JSON.stringify(locations);
+localStorage.setItem(APP_PREFIX,strLoc) ;
 
     // Removes the saved location at the given index.
     // 
     this.removeLocationAtIndex = function(index)
     {
+        localStorage.removeItem(APP_PREFIX)
     }
 
     // This method is used by JSON.stringify() to serialise this class.
@@ -77,6 +85,12 @@ function LocationWeatherCache()
     // are active web service requests and so doesn't need to be saved.
     //
     this.toJSON = function() {
+        var onlyPublicWeather =
+        {
+            locations : locations ,
+            callbacks : callbacks
+        };
+        return onlyPublicWeather ;
     };
 
     // Given a public-data-only version of the class (such as from
@@ -84,6 +98,8 @@ function LocationWeatherCache()
     // instance to match that version.
     //
     this.initialiseFromPDO = function(locationWeatherCachePDO) {
+        locations = locationWeatherCachePDO.locations;
+        callbacks = locationWeatherCachePDO.callbacks;
     };
 
     // Request weather for the location at the given index for the
