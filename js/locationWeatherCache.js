@@ -214,10 +214,11 @@ function LocationWeatherCache()
             "Latitude" : latitude ,
             "Longitude" : longitude,
             "Nickname" : nickname,
-            "Forecast" : ""
+            "Forecast" : {}
             }
-        var strLoc = JSON.stringify(locations);
-        localStorage.setItem(APP_PREFIX,strLoc);
+        locations.push(nickname)
+        return locations.indexOf(nickname)
+        
     }
 
     // Removes the saved location at the given index.
@@ -263,7 +264,36 @@ function LocationWeatherCache()
     // weather object for that location.
     // 
     this.getWeatherAtIndexForDate = function(index, date, callback) {
-    };
+     
+        // forecasts property value should be the daily weather forecast object returned by forecast.io  of the form “{lat},{lng},{date}”
+        forecastsProperty =  String(locations[index].latitude) + "," + String(locations[index].longitude) + "," + date.prototype.simpleDateString ; //ok when they say JS Date instance do they mean normal just date or do i convert it to the required format for Forecast.io? 
+        if (locations[index].forecasts.hasOwnProperty(forecastsProperty)) //hasOwnProperty can be used to determine whether an object has the specified property(defined in the brackets), in this case forecastsProperty is the Property we are looking for. 
+            //Checking if the property is already stored in the array
+         {
+             
+           callback(index,locations[index].forecasts[weatherObject]);
+            
+         }
+        else //get data from forecast.io using JSONP query string
+         {
+             var script = document.createElement("script");
+             //https://api.forecast.io/forecast/APIKEY/LATITUDE,LONGITUDE,TIME
+             //LATITUDE,LONGITUDE,TIME is the same format as weatherObject
+             //exclude minutely,hourly and currently
+             //set callback to weatherResponse function 
+             script.src = "https://api.forecast.io/forecast/a1245f6ea0f0edeb3d460a4ed49cadd6/" + forecastsProperty + "?exclude=[currently,minutely,hourly]&callback=LocationWeatherCache.weatherResponse" ;
+             document.body.appendChild(script);   
+         }
+        
+        //saving the callback
+        if (callbacks.hasOwnProperty(callbacks.name) !== true ) 
+        {
+            callbacks[forecastsProperty] = callback; 
+        }
+       };
+            
+            
+        
     
     // This is a callback function passed to forecast.io API calls.
     // This will be called via JSONP when the API call is loaded.
@@ -298,7 +328,8 @@ function LocationWeatherCache()
 function loadLocations()
 {
  localStorage.getItem(APP_PREFIX)
-localStorage.initialiseFromPDO(strLoc);
+LocationWeatherCache.initialiseFromPDO(localStorage[APP_PREFIX]);
+    
 }
 
 
@@ -310,6 +341,6 @@ if(typeof(Storage) !== "undefined") {
    var strLoc = LocationWeatherCache.toJSON() ;
     localStorage.setItem(APP_PREFIX,strLoc) ;
 } else {
-    alert("Sorry, Local Storage is not Supported by your browser")
+    alert("Sorry, Local Storage is not supported by your browser")
 }
 }
