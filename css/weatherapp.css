@@ -8,3 +8,7 @@ html, body {
 	width: 450px;
 	background-color: gray;
 }
+
+#dateForLocation {
+	font-size: 150%
+}
