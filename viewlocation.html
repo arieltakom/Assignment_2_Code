@@ -30,7 +30,30 @@
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
                 <!--   Main page content here:   -->  
-                
+                <div id="map"></div>
+				  <br>
+				  <div>
+					  <input class="mdl-slider mdl-js-slider" type="range" min="0" max="30" value="30" tabindex="0" oninput="daySlider(this.value)">
+				  </div>
+				  <br>
+				  <!-- For the date-->
+				  <span id = "dateForLocation"></span>
+				  <br>
+				  <br>
+				  <!-- For the weather information -->
+				  <span id = "weatherSummary"> Weather Summary: Loading...</span>
+				  <br>
+				  <span id = "minTemp"> Minimum Temperature: Loading...</span>
+				  <br>
+				  <span id = "maxTemp"> Maximum Temperature: Loading...</span>
+				  <br>
+				  <span id = "humidity"> Humidity: Loading...</span>
+				  <br>
+				  <span id = "windSpeed"> Wind Speed: Loading...</span>
+				  <br>
+				  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="removeLocation()">
+						REMOVE THIS LOCATION
+				  </button>
               
               </div>
             </div>
@@ -38,6 +61,7 @@
         </div>
 
         <!--   JavaScript files:   -->
+        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
         <script src="js/locationWeatherCache.js"></script>
         <script src="js/viewLocationPage.js"></script>
     </body>
